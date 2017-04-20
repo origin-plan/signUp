@@ -460,6 +460,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="syso"></div>
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
@@ -483,20 +484,25 @@
 				var phone = $("#phone").val();
 
 				var form_json = {
-					"name": name,
-					"student": student,
-					"XB": XB,
-					"nation": nation,
-					"ZJ": ZJ,
-					"ZJH": ZJH,
-					"grade": grade,
-					"Occupation": Occupation,
-					"XL": XL,
-					"KSPX": KSPX,
-					"address": address,
-					"phone": phone
+					"XM": name, //姓名
+					"XH": student, //学号
+					"XB": XB, //性别
+					"MZ": nation, //民族
+					"ZJ": ZJ, //证件
+					"ZJH": ZJH, //证件号
+					"BKYYJB": grade, //报考语言级别
+					"ZY": Occupation, //职业
+					"WHCD": XL, //文化程度
+					"KSPXZL": KSPX, //考生参加培训种类
+					"LXDZ": address, //联系地址
+					"LXDH": phone //联系电话
 				};
 				console.log(form_json);
+				$.post(getSetInfoUrl(), {
+					"info": form_json
+				}, function(d, s) {
+					$(".syso").html(d);
+				})
 			}
 		</script>
 	</body>
