@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<style type="text/css">
+			body {
+				background-color: #f0f3f4;
+				font-family: "微软雅黑";
+			}
+			
+			.box {
+				position: fixed;
+				top: 40%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-moz-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				-o-transform: translate(-50%, -50%);
+				transform: translate( -50%, -50%);
+			}
+			
+			.logo-size {
+				font-size: 50px;
+			}
+			
+			.padding-0 {
+				padding: 0;
+			}
+			
+			.panel {
+				width: 300px;
+				margin: 20px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<h1 class="text-center">报名系统</h1>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group" id="userIDbox">
+						<label class="control-label" for="">学号</label>
+						<input type="text" class="form-control" id="userID" placeholder="请输入您的学号">
+					</div>
+					<div class="form-group " id="userPwdBox">
+						<div class="col-xs-6 padding-0">
+							<label class="control-label" for="">密码</label>
+						</div>
+						<div class="col-xs-6 text-right">
+							<span class="text-primary "><a href="#" data-toggle="modal" data-target="#myModal">找回密码</a></span>
+						</div>
+						<input type="text" class="form-control" id="userPwd" placeholder="请输入您的密码">
+					</div>
+					<button type="button" id="ok" class="btn btn-success btn-block">登陆</button>
+				</div>
+			</div>
+
+			<div class="text-center">
+				<span>© 2017 Origin plan，报名系统技术 由</span>
+				<a href="https://origin-plan.github.io/main/">起源计划网络科技工作室</a>
+				提供
+			</div>
+		</div>
+
+		<!-- Button trigger modal -->
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">找回密码</h4>
+					</div>
+					<div class="modal-body">
+						请到主北303找回密码
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).on("click", "#ok", function() {
+				ok();
+			})
+
+			function ok() {
+				var userID = $("#userID").val();
+				var userPwd = $("#userPwd").val();
+				$.post("userLogn.php", {
+					"userID": userID,
+					"userPwd": userPwd
+				}, function(d, s) {
+					var obj = evel("(" + d + ")");
+					if(obj.is == "0") {
+						$("#userIDbox").addClass("has-error")
+					}
+					if(obj.is == "1") {
+						$("#userPwdBox").addClass("has-error")
+					}
+					if(obj.is == "2") {
+						window.url = "addinfo.html";
+					}
+					if(obj.is == "3") {
+						window.url = "info.html";
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>
