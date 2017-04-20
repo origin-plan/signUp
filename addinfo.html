@@ -499,6 +499,8 @@
 				};
 				console.log(form_json);
 				$.post(getSetInfoUrl(), {
+					"userID": getUserID(),
+					"userPwd": getUserPwd(),
 					"info": form_json
 				}, function(d, s) {
 					$(".syso").html(d);

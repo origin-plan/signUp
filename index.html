@@ -141,9 +141,12 @@
 				var userID = $("#userID").val();
 				var userPwd = $("#userPwd").val();
 
+				setUserID(userID);
+				setUserPwd(userPwd);
+
 				$.post(getUrlIp(), {
-					"userID": userID,
-					"userPwd": userPwd
+					"userID": getUserID(),
+					"userPwd": getUserPwd()
 				}, function(d, s) {
 					console.log(d);
 					var obj = eval("(" + d + ")");
