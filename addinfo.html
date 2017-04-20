@@ -38,11 +38,11 @@
 
 					<div class="form-group">
 						<label>姓名</label>
-						<input type="text" class="form-control" id="" placeholder="请输入您的姓名" />
+						<input type="text" class="form-control" id="name" placeholder="请输入您的姓名" />
 					</div>
 					<div class="form-group">
 						<label>学号</label>
-						<input type="text" class="form-control" id="" placeholder="请输入您的学号" />
+						<input type="text" class="form-control" id="student" placeholder="请输入您的学号" />
 					</div>
 
 					<div class="form-group">
@@ -57,7 +57,7 @@
 					<div class="form-group">
 						<label>民族</label>
 
-						<select class="form-control" name="">
+						<select class="form-control" name="" id="nation">
 
 							<option value="01">汉族</option>
 							<option value="02">蒙古</option>
@@ -123,7 +123,7 @@
 					</div>
 					<div class="form-group">
 						<label>证件类型</label>
-						<select class="form-control" name="">
+						<select class="form-control" name="" id="ZJ">
 
 							<option value="1">
 								中华人民共和国居民身份证（含临时身份证）
@@ -144,13 +144,13 @@
 					</div>
 					<div class="form-group">
 						<label>证件号</label>
-						<input type="text" class="form-control" id="" placeholder="schoolID" />
+						<input type="text" class="form-control" id="ZJH" placeholder="schoolID" />
 					</div>
 					<div class="form-group">
 						<label>报考语言级别</label>
 						<a href="#" data-toggle="modal" data-target="#myModal">(查看语言级别)</a>
 
-						<select class="form-control" name="">
+						<select class="form-control" name="" id="grade">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -160,7 +160,7 @@
 					</div>
 					<div class="form-group">
 						<label>职业</label>
-						<select class="form-control" name="">
+						<select class="form-control" name="" id="occupation">
 							<option value="01">中国共产党中央委员会和地方各级组织负责人</option>
 							<option value="02">国家机关及其工作机构负责人</option>
 							<option value="03">民主党派和社会团体及其工作机构负责人</option>
@@ -233,7 +233,7 @@
 
 					<div class="form-group">
 						<label>文化程度</label>
-						<select class="form-control" name="">
+						<select class="form-control" name="" id="XL">
 							<option value="1">博士</option>
 							<option value="2">硕士</option>
 							<option value="3">本科</option>
@@ -247,7 +247,7 @@
 
 					<div class="form-group">
 						<label>考试培训种类</label>
-						<select class="form-control" name="">
+						<select class="form-control" name="" id="KSPX">
 							<option value="1">在校正规课程</option>
 							<option value="2">社会培训班</option>
 							<option value="3">未参加培训</option>
@@ -255,15 +255,15 @@
 					</div>
 					<div class="form-group">
 						<label>联系地址</label>
-						<input type="text" class="form-control" id="" placeholder="schoolID" />
+						<input type="text" class="form-control" id="address" placeholder="schoolID" />
 					</div>
 					<div class="form-group">
 						<label>联系电话</label>
-						<input type="text" class="form-control" id="" placeholder="schoolID" />
+						<input type="text" class="form-control" id="phone" placeholder="schoolID" />
 					</div>
 
 					<div class="form-group">
-						<button class="btn btn-danger btn-block">提交</button>
+						<button class="btn btn-danger btn-block" id="submit">提交</button>
 					</div>
 				</div>
 
@@ -467,6 +467,43 @@
 		</div>
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).on("click", "#submit", function() {
+				get();
+			})
+
+			function get() {
+				var name = $("#name").val();
+				var student = $("#student").val();
+				var XB = $("#XB").val();
+				var nation = $("#nation").val();
+				var ZJ = $("#ZJ").val();
+				var ZJH = $("#ZJH").val();
+				var grade = $("#grade").val();
+				var Occupation = $("#occupation").val();
+				var XL = $("#XL").val();
+				var KSPX = $("#KSPX").val();
+				var address = $("#address").val();
+				var phone = $("#phone").val();
+
+				var form_json = {
+					"name": name,
+					"student": student,
+					"XB": XB,
+					"nation": nation,
+					"ZJ": ZJ,
+					"ZJH": ZJH,
+					"grade": grade,
+					"Occupation": Occupation,
+					"XL": XL,
+					"KSPX": KSPX,
+					"address": address,
+					"phone": phone
+				};
+				console.log(form_json);
+			}
+		</script>
 	</body>
 
 </html>

@@ -39,7 +39,7 @@
 
 	<body>
 		<div class="box">
-			<h1 class="text-center">报名系统a</h1>
+			<h1 class="text-center">报名系统</h1>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="form-group" id="userIDbox">
@@ -89,6 +89,8 @@
 			</div>
 		</div>
 
+		<div class="syso"></div>
+
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
@@ -99,12 +101,23 @@
 			})
 
 			function ok() {
+				if($("#userID").val() == null || $("#userID").val() == "") {
+					alert("请你输入账户");
+					return;
+				}
+				if($("#userPwd").val() == null || $("#userPwd").val() == "") {
+					alert("请你输入密码");
+					return;
+				}
 				var userID = $("#userID").val();
 				var userPwd = $("#userPwd").val();
+
 				$.post(getUrlIp(), {
 					"userID": userID,
 					"userPwd": userPwd
 				}, function(d, s) {
+					alert(d);
+					$(".syso").html(d);
 					var obj = evel("(" + d + ")");
 					if(obj.is == "0") {
 						$("#userIDbox").addClass("has-error")
