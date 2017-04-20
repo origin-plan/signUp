@@ -51,7 +51,9 @@
 							<label class="control-label" for="">密码</label>
 						</div>
 						<div class="col-xs-6 text-right">
-							<span class="text-primary "><a href="#" data-toggle="modal" data-target="#myModal">找回密码</a></span>
+							<span class="text-primary ">
+								<a href="#" data-toggle="modal" data-target="#myModal">找回密码</a>
+							</span>
 						</div>
 						<input type="text" class="form-control" id="userPwd" placeholder="请输入您的密码">
 					</div>
@@ -72,7 +74,9 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 						<h4 class="modal-title" id="myModalLabel">找回密码</h4>
 					</div>
 					<div class="modal-body">
@@ -87,6 +91,8 @@
 
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+
 		<script type="text/javascript">
 			$(document).on("click", "#ok", function() {
 				ok();
@@ -95,7 +101,7 @@
 			function ok() {
 				var userID = $("#userID").val();
 				var userPwd = $("#userPwd").val();
-				$.post("userLogn.php", {
+				$.post(getUrlIp(), {
 					"userID": userID,
 					"userPwd": userPwd
 				}, function(d, s) {
@@ -107,10 +113,11 @@
 						$("#userPwdBox").addClass("has-error")
 					}
 					if(obj.is == "2") {
-						window.url = "addinfo.html";
+						window.location.url = 'addinfo.html';
 					}
 					if(obj.is == "3") {
-						window.url = "info.html";
+						window.location.url = 'info.html';
+
 					}
 				})
 			}
