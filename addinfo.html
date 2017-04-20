@@ -472,7 +472,7 @@
 			function get() {
 				var name = $("#name").val();
 				var student = $("#student").val();
-				var XB = $("#XB").val();
+				var XB = $("input[name='XB']:checked").val();
 				var nation = $("#nation").val();
 				var ZJ = $("#ZJ").val();
 				var ZJH = $("#ZJH").val();
@@ -503,6 +503,7 @@
 				}, function(d, s) {
 					$(".syso").html(d);
 				})
+
 			}
 		</script>
 	</body>
