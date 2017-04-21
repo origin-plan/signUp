@@ -1,136 +1,85 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<title>info</title>
+		<meta charset="UTF-8" />
+		<title>Document</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/info.css" />
-
 		<style type="text/css">
-			* {
-				font-family: "微软雅黑";
-			}
-			
-			html,
 			body {
-				width: 100%;
-				height: 100%;
-				margin: 0;
-				padding: 0;
 				background-color: #555;
-				overflow: hidden;
-			}
-			
-			.info-position {
-				position: absolute;
-				top: 40%;
-				left: 50%;
-				-webkit-transform: translate(-50%, -50%);
-				-moz-transform: translate(-50%, -50%);
-				-ms-transform: translate(-50%, -50%);
-				-o-transform: translate(-50%, -50%);
-				transform: translate(-50%, -50%);
 			}
 		</style>
+
 	</head>
 
 	<body>
-		<div class="info info-default info-width info-position">
-			<div class="info-left">
 
-				<div class="info-head info-head-left">
+		<div class="panel-box">
 
-					<div class="info-title">头像</div>
-
+			<div class="panel panel-default panel-width">
+				<div class="panel-heading">头像</div>
+				<div class="panel-body">
+					<div class="headimg"></div>
 				</div>
-				<div class="info-body info-body-left info-body-height">
-
-					<div class="head-img"></div>
-
-				</div>
-				<div class="info-footer info-footer-left">
-					<div class="hr"></div>
-					<div class="text-p">
-						<a href="#" data-toggle="modal" data-target="#myModal">更改信息</a>
-					</div>
+				<div class="panel-footer">
+					<div class="fg"></div>
+					更改信息
 				</div>
 			</div>
-			<div class="ln">
-				<div class="ln-body"></div>
+			<div class="hr">
+				<div class="hr-body"></div>
 			</div>
-			<div class="info-right">
-
-				<div class="info-head info-head-right">
-					<div class="info-title">信息</div>
-				</div>
-
-				<div class="info-body info-body-right info-body-height">
-
-					<table class="table table-bordered table-condensed">
+			<div class="panel panel-default">
+				<div class="panel-heading">信息</div>
+				<div class="panel-body panel-table">
+					<table class="table table-bordered ">
 						<tr>
-							<td>准考证号</td>
+							<th>准考证号</th>
 							<td>2848320117100101</td>
 
-							<td>报名号</td>
+							<th>报名号</th>
 							<td>48320117000226</td>
 
 						</tr>
 						<tr>
-							<td>姓名</td>
+							<th>姓名</th>
 							<td>CEO</td>
 
-							<td>预报名号</td>
+							<th>预报名号</th>
 							<td>32011728000885</td>
 						</tr>
 						<tr>
-							<td>身份证号</td>
+							<th>身份证号</th>
 							<td>320303199612270011</td>
 
-							<td>考试等级</td>
+							<th>考试等级</th>
 							<td>二级JAVA</td>
 						</tr>
 						<tr>
-							<td>准考证号</td>
+							<th>准考证号</th>
 							<td>2848320117100101</td>
 
-							<td>上机地点</td>
+							<th>上机地点</th>
 							<td>主北303</td>
 						</tr>
 
 					</table>
 				</div>
-
-				<div class="info-footer info-footer-right">
-					<div class="hr"></div>
-					<div class="text-p">全国计算机等级考试</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Button trigger modal -->
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">更改信息</h4>
-					</div>
-					<div class="modal-body">
-						修改信息到主北303
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					</div>
+				<div class="panel-footer">
+					<div class="fg"></div>
+					全国计算机等级考试
 				</div>
 			</div>
 		</div>
+
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+		</script>
+
 	</body>
 
 </html>
