@@ -6,6 +6,8 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<title>add-info</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+
 		<style type="text/css">
 			html {
 				width: 100%;
@@ -16,22 +18,37 @@
 				background-color: #f0f3f4;
 				width: 100%;
 				height: 100%;
-				padding: 30px;
 			}
 			
 			.box {
 				width: 1000px;
 				max-width: 100%;
 				margin: 0 auto;
+				padding: 30px;
+			}
+			
+			.alert-qy {
+				text-align: center;
+				position: fixed;
+				width: 100%;
+				display: none;
+				top: 0;
+			}
+			
+			.sk-spinner-double-bounce .sk-double-bounce1,
+			.sk-spinner-double-bounce .sk-double-bounce2 {
+				background-color: #d9534f;
 			}
 		</style>
 	</head>
 
 	<body>
-
+		<div id="alert" class="alert alert-success alert-qy" role="alert"></div>
 		<div class="box">
+
 			<h1 class="text-center">全国计算机等级考试报名——个人信息配置</h1>
 			<br />
+
 			<div class="panel panel-default panel-margin-top">
 
 				<div class="panel-body">
@@ -263,7 +280,9 @@
 					</div>
 
 					<div class="form-group">
-						<button class="btn btn-danger btn-block" id="submit">提交</button>
+						<button class="btn btn-danger btn-block" id="submit">
+							提交
+						</button>
 					</div>
 				</div>
 
@@ -465,11 +484,48 @@
 		<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			$.post(getSetInfoUrl(), {
+				"userID": getUserID(),
+				"userPwd": getUserPwd(),
+			}, function(d, s) {
+				var obj = eval("(" + d + ")");
+
+				if(obj.is == '6') {
+
+					//已经通过审核，不可以被更改
+					alert(已经被审核不可以再次修改);
+					window.location.href = 'info.html';
+				}
+
+			})
+
 			$(document).on("click", "#submit", function() {
+				btn_loading('#submit', '正在提交……');
 				get();
 			})
 
+			function btn_loading(ID, text) {
+				$(ID).attr('disabled', 'disabled');
+				$(ID).text('加载中……');
+
+				if(text != null || text != '') {
+					$(ID).text(text);
+				}
+
+			}
+
+			function btn_removeloading(ID, text) {
+				$(ID).removeAttr('disabled');
+				$(ID).text('完成~');
+
+				if(text != null || text != '') {
+					$(ID).text(text);
+				}
+
+			}
+
 			function get() {
+
 				var name = $("#name").val();
 				var student = $("#student").val();
 				var XB = $("input[name='XB']:checked").val();
@@ -503,6 +559,42 @@
 					"userPwd": getUserPwd(),
 					"info": form_json
 				}, function(d, s) {
+
+					$(".syso").html(d);
+
+					var obj = eval("(" + d + ")");
+					if(obj.is == '0' || obj.is == '1' || obj.is == '3') {
+						//账户和密码未提交，或者账户密码不正确，即使客户端手动跳过此步骤，服务器也不会执行对数据库的处理
+						window.location.href = 'index.html';
+
+					}
+					if(obj.is == '2') {
+						//信息未正确提交，可能因为网络问题，也可能因为脚本问题
+						btn_removeloading('#submit', '错误：2，信息未正确提交，请重试或联系客服。');
+
+					}
+					if(obj.is == '4') {
+						//代表对数据库的操作成功
+						$("#alert").slideDown();
+						$("#alert").text('数据提交成功~');
+						btn_removeloading('#submit', '提交成功~');
+						$("#submit").removeClass('btn-danger');
+						$("#submit").addClass('btn-success');
+
+						//						success
+						window.location.href = 'setHeadImg.html';
+					}
+					if(obj.is == '5') {
+						//数据库插入执行不成功
+						btn_removeloading('#submit', '错误：5，请重试或联系客服');
+
+					}
+					if(obj.is == '6') {
+						//已经通过审核，不可以被更改
+						btn_removeloading('#submit', '已经被审核不可以再次修改');
+
+					}
+
 					$(".syso").html(d);
 				})
 

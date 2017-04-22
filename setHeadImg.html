@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="A complete example of Cropper.">
+		<meta name="keywords" content="HTML, CSS, JS, JavaScript, jQuery, PHP, image cropping, web development">
+		<meta name="author" content="Fengyuan Chen">
+		<title>Crop Avatar - Cropper</title>
+
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/cropper.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="container" id="crop-avatar">
+
+			<!-- Current avatar -->
+			<div class="avatar-view" title="Change the avatar">
+				<img src="img/11186424448b80f7e5o.jpg" id="headimg" alt="Avatar">
+			</div>
+			<h3 class="text-center">点击头像进行设置</h3>
+			<p class="text-center">
+				<a href="info.html">跳过头像设置</a>
+			</p>
+			<p class="text-center">
+				<a href="#">(只有正确的设置了头像才可以通过审核，戳我查看审核标准)</a>
+			</p>
+
+			<!-- Cropping modal -->
+			<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<form class="avatar-form" action="" enctype="multipart/form-data" method="post">
+
+							<input type="hidden" name="userID" id="userID" value="" />
+							<input type="hidden" name="userPwd" id="userPwd" value="" />
+
+							<div class="modal-header">
+								<button class="close" data-dismiss="modal" type="button">&times;</button>
+								<h4 class="modal-title" id="avatar-modal-label">上传头像</h4>
+							</div>
+							<div class="modal-body">
+								<div class="avatar-body">
+
+									<!-- Upload image and data -->
+									<div class="avatar-upload">
+										<input class="avatar-src" name="avatar_src" type="hidden">
+										<input class="avatar-data" name="avatar_data" type="hidden">
+										<label for="avatarInput">选择图片</label>
+										<input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+									</div>
+
+									<!-- Crop and preview -->
+									<div class="row">
+										<div class="col-md-9">
+											<div class="avatar-wrapper"></div>
+										</div>
+										<div class="col-md-3">
+											<div class="avatar-preview preview-lg"></div>
+											<div class="avatar-preview preview-md"></div>
+											<div class="avatar-preview preview-sm"></div>
+										</div>
+									</div>
+
+									<div class="row avatar-btns">
+										<div class="col-md-9">
+											<div class="btn-group">
+												<button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">左转</button>
+												<button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15</button>
+												<button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30</button>
+												<button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45</button>
+											</div>
+											<div class="btn-group">
+												<button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">右转</button>
+												<button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15</button>
+												<button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30</button>
+												<button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45</button>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<button class="btn btn-primary btn-block avatar-save" type="submit">确定</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+            </div> -->
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal -->
+
+			<!-- Loading state -->
+			<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+		</div>
+
+		<script src="js/jquery-2.1.0.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/cropper.js"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('#headimg').attr('src', getUrlIp() + 'userHeadImg/' + getUserID() + '.png');
+
+			$.post(getSetInfoUrl(), {
+				"userID": getUserID(),
+				"userPwd": getUserPwd(),
+			}, function(d, s) {
+
+				var obj = eval("(" + d + ")");
+
+				if(obj.is == '6') {
+					//已经通过审核，不可以被更改
+					alert(已经被审核不可以再次修改);
+					window.location.href = 'info.html';
+				}
+
+			})
+			$('#userID').val(getUserID());
+			$('#userPwd').val(getUserPwd());
+		</script>
+		<script src="js/main.js"></script>
+	</body>
+
+</html>

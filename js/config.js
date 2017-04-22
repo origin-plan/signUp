@@ -1,18 +1,31 @@
-var ip = '127.0.0.1/signUpAdmin/';
-localStorage.urlIP = "http://127.0.0.1/signUpAdmin/userLogin.php";
+var urlIP = 'http://127.0.0.1/signUpAdmin/';
 
 function getUrlIp() {
-	return localStorage.urlIP;
 
+	return urlIP;
+}
+
+function getLoginUrl() {
+	return urlIP + "userLogin.php";
 }
 
 function getSetInfoUrl() {
-	return "http://127.0.0.1/signUpAdmin/setInfo.php";
+	return urlIP + "setInfo.php";
 }
 
+function getInfoUrl() {
+	return urlIP + "getInfo.php";
+
+}
+
+function getSetHeadImgUlr() {
+	return urlIP + "crop.php";
+
+}
+
+//=========================================
 function setUserID(userID) {
 	localStorage.userID = userID;
-
 }
 
 function setUserPwd(userPwd) {
@@ -21,7 +34,6 @@ function setUserPwd(userPwd) {
 
 function getUserID() {
 	return localStorage.userID;
-
 }
 
 function getUserPwd() {

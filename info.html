@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>Document</title>
+		<title>准考证信息</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/info.css" />
 		<style type="text/css">
@@ -21,11 +21,15 @@
 			<div class="panel panel-default panel-width">
 				<div class="panel-heading">头像</div>
 				<div class="panel-body">
-					<div class="headimg"></div>
+					<a href="#" id="upHeadImg">
+						<div class="headimg"></div>
+					</a>
+
 				</div>
 				<div class="panel-footer">
 					<div class="fg"></div>
-					更改信息
+					<a href="#" id="upinfo">更改信息</a>
+
 				</div>
 			</div>
 			<div class="hr">
@@ -37,32 +41,29 @@
 					<table class="table table-bordered ">
 						<tr>
 							<th>准考证号</th>
-							<td>2848320117100101</td>
+							<td id="ZKZH"></td>
 
 							<th>报名号</th>
-							<td>48320117000226</td>
+							<td id="BMH"></td>
 
 						</tr>
 						<tr>
 							<th>姓名</th>
-							<td>CEO</td>
+							<td id="name"></td>
 
 							<th>预报名号</th>
-							<td>32011728000885</td>
+							<td id="YBMH"></td>
 						</tr>
 						<tr>
-							<th>身份证号</th>
-							<td>320303199612270011</td>
+							<th>证件号</th>
+							<td id="ZJH"></td>
 
-							<th>考试等级</th>
-							<td>二级JAVA</td>
+							<th>报考语言级别</th>
+							<td id="BKYYJB"></td>
 						</tr>
 						<tr>
-							<th>准考证号</th>
-							<td>2848320117100101</td>
-
-							<th>上机地点</th>
-							<td>主北303</td>
+							<th>考试地点</th>
+							<td id="SJDD"></td>
 						</tr>
 
 					</table>
@@ -73,11 +74,98 @@
 				</div>
 			</div>
 		</div>
+		<div class="syso"></div>
 
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript">
+			$('.headimg').css('background-image', 'url(' + getUrlIp() + 'userHeadImg/' + getUserID() + '.png' + ')');
+
+			$(document).on('click', '#upinfo', function() {
+
+				window.location.href = 'addinfo.html';
+
+			});
+			$(document).on('click', '#upHeadImg', function() {
+
+				window.location.href = 'setHeadImg.html';
+
+			});
+
+			getInfo();
+
+			function getInfo() {
+				$.post(getInfoUrl(), {
+					"userID": getUserID(),
+					"userPwd": getUserPwd()
+				}, function(d, s) {
+					//					$('.syso').html(d);
+					console.log(d);
+					var obj = eval("(" + d + ")");
+					console.log(obj);
+
+					if(obj.is == '0') {
+						window.location.href = 'index.html';
+						return;
+					}
+					if(obj.is == '1') {
+						window.location.href = 'index.html';
+						return;
+					}
+					if(obj.is == '2') {
+						window.location.href = 'index.html';
+						return;
+					}
+
+					var dom_json = {
+						"ZKZH": $('#ZKZH'),
+						"BMH": $('#BMH'),
+						"XM": $('#name'),
+						"YBMH": $('#YBMH'),
+						"ZJH": $('#ZJH'),
+						"BKYYJB": $('#BKYYJB'),
+						"SJDD": $('#SJDD'),
+						setAlltext: function(str) {
+							for(x in dom_json) {
+								dom_json[x].text(str);
+							}
+
+						}
+
+					};
+
+					if(obj.is == '3') {
+						dom_json.setAlltext('未添加');
+					}
+					if(obj.is == '4') {
+
+						for(x in obj.info) {
+							if(dom_json[x] != null) {
+
+								if(obj.info[x] == '') {
+									dom_json[x].text('待审');
+								} else {
+									dom_json[x].text(obj.info[x]);
+								}
+
+							}
+						}
+
+						//						dom_json.ZKZH.text(obj.info.ZKZH);
+						//						dom_json.BMH.text(obj.info.BMH);
+						//						dom_json.XM.text(obj.info['XM']);
+						//						dom_json.YBMH.text(obj.info.YBMH);
+						//						dom_json.ZJH.text(obj.info.ZJH);
+						//						dom_json.KSDJ.text(obj.info.KSDJ);
+						//						dom_json.SJDD.text(obj.info.SJDD);
+
+					}
+
+				})
+
+			}
 		</script>
 
 	</body>
