@@ -117,21 +117,60 @@
 			</div>
 
 		</div>
+		<div class="syso"></div>
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="./adminLogin/ie10-viewport-bug-workaround.js"></script>
 		<script src="js/adminconfig.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/adminconfig.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).on("click", "#submit", function() {
 				var adminID = $("#adminID").val();
 				var adminPwd = $("#adminPwd").val();
-				console.log(adminID);
-				console.log(adminPwd);
 				setadminID(adminID);
 				setadminPwd(adminPwd);
 				console.log(getadminID());
 				console.log(getadminPwd());
+
+				$.post(getAdminLoginUrl(), {
+					"adminID": getadminID(),
+					"adminPwd": getadminPwd(),
+				}, function(d, s) {
+					$('.syso').html(d);
+					console.log(d);
+					var obj = eval('(' + d + ')');
+
+					if(obj.is == "0") {
+						//未提交ID
+						console.log('未提交ID');
+
+					}
+					if(obj.is == "1") {
+						//未提交密码
+						console.log('未提交密码');
+
+					}
+					if(obj.is == "2") {
+						//如果密码不正确
+						console.log('密码不正确');
+
+					}
+					if(obj.is == "3") {
+						//密码正确
+						console.log('密码正确');
+
+						window.location.href = 'admin.html';
+
+					}
+					if(obj.is == "4") {
+						//没有任何账户
+						console.log('没有任何账户');
+
+					}
+
+				})
+
 			})
 		</script>
 

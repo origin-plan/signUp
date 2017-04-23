@@ -1,4 +1,4 @@
-var urlIP = 'http://127.0.0.1/signUpAdmin/';
+var urlIP = 'http://192.168.1.101/signUpAdmin/';
 
 function getUrlIp() {
 

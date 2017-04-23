@@ -5,6 +5,13 @@
 		<meta charset="utf-8" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<style type="text/css">
+			body {
+				padding-top: 50px;
+				/*background-color: #f0f3f4;*/
+			}
+		</style>
+
 	</head>
 
 	<body>
@@ -12,48 +19,144 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Panel heading without title</div>
+						<div class="panel-heading">审核</div>
 						<div class="panel-body">
-							Panel content
+							审核
 						</div>
-						<table class="table table-hover table-striped">
+						<table class="table table-hover table-striped table-bordered" id="infoall">
 							<tr>
 								<th>#</th>
+								<th>学号</th>
 								<th>姓名</th>
-								<th>姓名</th>
-								<th>姓名</th>
+								<th>性别</th>
+								<th>出生日期</th>
+								<th>民族</th>
+								<th>证件号</th>
+								<th>职业</th>
+								<th>文化程度</th>
+								<th>考生参加培训种类</th>
+								<th>考场号</th>
+								<th>批次号</th>
+								<th>联系地址</th>
+								<th>联系电话</th>
+								<th>头像</th>
+								<th>审核</th>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
+
 						</table>
 					</div>
 
 				</div>
 			</div>
 		</div>
-
+		<div class="syso"></div>
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/adminconfig.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			
-			
-			
+			$.post(getAdminGetInfoUrl(), {
+				"adminID": getadminID(),
+				"adminPwd": getadminPwd(),
+			}, function(d, s) {
+				//				$('.syso').html(d);
+
+				var obj = eval('(' + d + ')');
+
+				if(obj.is == "0") {
+					//未提交ID
+					console.log('未提交ID');
+					window.location.href = 'adminLogin.html';
+
+				}
+				if(obj.is == "1") {
+					//未提交密码
+					console.log('未提交密码');
+					window.location.href = 'adminLogin.html';
+				}
+				if(obj.is == "2") {
+					//如果密码不正确
+					console.log('密码不正确');
+					window.location.href = 'adminLogin.html';
+				}
+				if(obj.is == "3") {
+					//没有任何管理账户
+					console.log('没有任何管理账户');
+					window.location.href = 'adminLogin.html';
+				}
+				//===
+				if(obj.is == "4") {
+					//4没有用户数据，没有添加
+				}
+				if(obj.is == "5") {
+					//5 输出所有用户信息
+					printInfo(obj.info);
+				}
+			})
+
+			function getTd() {
+				var td_json = {
+					"#": $('<td></td>'),
+					"userID": $('<td></td>'),
+					"XM": $('<td></td>'),
+					"XB": $('<td></td>'),
+					"CSRQ": $('<td></td>'),
+					"MZ": $('<td></td>'),
+					"ZJH": $('<td></td>'),
+					"ZY": $('<td></td>'),
+					"WHCD": $('<td></td>'),
+					"KSPXZL": $('<td></td>'),
+					"KZH": $('<td></td>'),
+					"PCH": $('<td></td>'),
+					"LXDZ": $('<td></td>'),
+					"LXDH": $('<td></td>'),
+					"headimg": $('<td></td>'),
+					"ok": $('<td></td>'),
+				};
+
+				return td_json;
+
+			}
+
+			function printInfo(infoall) {
+				//				console.log(infoall);
+				for(var i = 0; i < infoall.length; i++) {
+
+					var info = infoall[i];
+
+					var tr = $('<tr></tr>');
+					tr.attr('id', info.userID)
+
+					var tds = getTd();
+					tds['#'].text(i + 1);
+
+					for(x in tds) {
+
+						if(info[x] != null) {
+							tds[x].text(info[x]);
+						}
+						tr.append(tds[x]);
+					}
+
+					var a = $("<a href='#'>通过</a>");
+					a.addClass('ok');
+					tds.ok.append(a);
+
+					//					var headimg = $("<img />");
+					//					headimg.attr('src', getUrlIp() + 'userHeadImg/' + tr.attr('id') + '.png');
+					//					tds.headimg.append(headimg);
+
+					$('#infoall').append(tr);
+
+				}
+
+			}
+
+			$(document).on('click', '.ok', function() {
+
+				var _this = $(this);
+				console.log(_this.parent().parent().attr('id'));
+
+			})
 		</script>
 	</body>
 
