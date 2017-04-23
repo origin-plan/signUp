@@ -117,20 +117,22 @@
 			</div>
 
 		</div>
-
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="js/jquery.min.js">
-		</script>
-		<script>
-			//			window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-		</script>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="./adminLogin/ie10-viewport-bug-workaround.js"></script>
-
+		<script src="js/adminconfig.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			$(document).on("click", "#submit", function() {
+				var adminID = $("#adminID").val();
+				var adminPwd = $("#adminPwd").val();
+				console.log(adminID);
+				console.log(adminPwd);
+				setadminID(adminID);
+				setadminPwd(adminPwd);
+				console.log(getadminID());
+				console.log(getadminPwd());
+			})
 		</script>
 
 	</body>
